@@ -46,32 +46,24 @@ export default function ShortVideos() {
         </div>
 
         {/* 카드 목록 */}
-        <div className="grid grid-cols-4" style={{ gap: '24px' }}>
+        <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: '16px' }}>
           {videos.map((video) => (
             <div key={video.id} className="cursor-pointer group">
               {/* 썸네일 */}
               <div
-                className="relative overflow-hidden bg-gray-100"
-                style={{ borderRadius: '12px' }}
+                className="relative overflow-hidden bg-gray-100 rounded-[6px] md:rounded-xl"
               >
                 <img
                   src={video.thumbnail}
                   alt={video.title}
                   className="w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  style={{ aspectRatio: '9/16' }}
+                  style={{ aspectRatio: '1/1.5' }}
                 />
                 {/* 그라디언트 오버레이 */}
                 <div
                   className="absolute inset-0"
                   style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%)' }}
                 />
-                {/* 재생 시간 */}
-                <div
-                  className="absolute text-white font-medium group-hover:opacity-0 transition-opacity"
-                  style={{ top: '12px', right: '12px', fontSize: '13px', background: 'rgba(0,0,0,0.3)', padding: '4px 8px', borderRadius: '8px' }}
-                >
-                  {video.duration}
-                </div>
                 {/* 호버 오버레이 */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors" />
                 {/* 재생 버튼 */}

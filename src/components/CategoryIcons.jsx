@@ -75,16 +75,15 @@ const categories = [
 
 export default function CategoryIcons() {
   return (
-    <section className="bg-white border-t border-gray-100" style={{ padding: '60px 0' }}>
+    <section className="bg-white md:border-t md:border-gray-100 py-[60px]">
       <div className="container-center">
-        <div className="flex justify-between">
+        <div className="grid grid-cols-4 gap-y-6 md:flex md:justify-between">
           {categories.map((category) => {
             return (
               <a
                 key={category.id}
                 href="#"
-                className="group flex flex-col items-center rounded-[24px] hover:bg-gray-50 transition-all duration-300"
-                style={{ width: '100px', gap: '16px', padding: '12px 0' }}
+                className="group flex flex-col items-center rounded-[24px] hover:bg-gray-50 transition-all duration-300 w-full md:w-[100px] gap-2 md:gap-4 py-2 md:py-3"
               >
                 <div className="relative">
                   {/* 뱃지: 3D 아이콘과 어울리게 약간 조정 */}
@@ -107,29 +106,20 @@ export default function CategoryIcons() {
                   )}
                   {/* 아이콘 컨테이너 */}
                   <div
-                    className="flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                    style={{
-                      width: '72px',
-                      height: '72px',
-                      borderRadius: '24px',
-                      background: 'transparent',
-                    }}
+                    className="flex items-center justify-center transition-all duration-300 group-hover:scale-110 w-16 h-16 md:w-[72px] md:h-[72px] rounded-2xl md:rounded-3xl bg-transparent"
                   >
                     <img
                       src={category.icon}
                       alt={category.name}
+                      className="w-12 h-12 md:w-14 md:h-14 object-contain"
                       style={{
-                        width: '56px',
-                        height: '56px',
-                        objectFit: 'contain',
                         filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.05))'
                       }}
                     />
                   </div>
                 </div>
                 <span
-                  className="text-center whitespace-nowrap text-gray-600 font-medium group-hover:text-gray-900 transition-colors"
-                  style={{ fontSize: '14px' }}
+                  className="text-center whitespace-nowrap text-gray-600 font-medium group-hover:text-gray-900 transition-colors text-xs md:text-sm"
                 >
                   {category.name}
                 </span>

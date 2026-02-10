@@ -106,7 +106,7 @@ export default function PopularCourses() {
         {/* 섹션 헤더 */}
         <div className="flex items-center justify-between" style={{ marginBottom: '32px' }}>
           <h2 className="text-gray-900 font-bold" style={{ fontSize: '28px' }}>
-            SkillBridge에서 추천하는 강좌 리스트
+            추천 강좌 리스트
           </h2>
           <button className="text-gray-500 hover:text-gray-700 transition-colors" style={{ fontSize: '15px' }}>
             더보기 >
@@ -114,19 +114,19 @@ export default function PopularCourses() {
         </div>
 
         {/* 카드 목록 */}
-        <div className="grid grid-cols-4" style={{ gap: '24px', rowGap: '48px' }}>
-          {courses.map((course) => (
+        <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: '24px', rowGap: '48px' }}>
+          {courses.map((course, index) => (
             <div
               key={course.id}
-              className="cursor-pointer group flex flex-col"
+              className={`cursor-pointer group flex flex-col ${index >= 4 ? 'hidden md:flex' : ''}`}
             >
               {/* 썸네일 */}
-              <div className="overflow-hidden" style={{ borderRadius: '12px', marginBottom: '16px' }}>
+              <div className="overflow-hidden rounded-[6px] md:rounded-xl" style={{ marginBottom: '16px' }}>
                 <img
                   src={course.thumbnail}
                   alt={course.title}
                   className="w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  style={{ aspectRatio: '16/9' }}
+                  style={{ aspectRatio: '1/1' }}
                 />
               </div>
 
@@ -154,32 +154,34 @@ export default function PopularCourses() {
                   {course.title}
                 </h3>
 
-                <div className="flex items-center text-gray-500" style={{ fontSize: '14px', marginBottom: '12px', gap: '8px' }}>
-                  <span className="text-gray-700 font-medium">{course.instructor} 전문가</span>
-                  <span className="text-gray-300">|</span>
-                  <span>총 {course.lessons}강</span>
-                  <span className="text-gray-300">|</span>
-                  <span className="flex items-center" style={{ gap: '4px' }}>
-                    <HiOutlineEye className="w-4 h-4" />
-                    {course.views.toLocaleString()}
-                  </span>
-                  <span className="text-gray-300">|</span>
-                  <span>{course.level}</span>
+                <div className="flex flex-col md:flex-row md:items-center text-gray-500" style={{ fontSize: '14px', marginBottom: '12px', gap: '4px 8px' }}>
+                  <span className="text-gray-700 font-medium whitespace-nowrap">{course.instructor} 전문가</span>
+                  <span className="hidden md:inline text-gray-300">|</span>
+                  <div className="flex items-center" style={{ gap: '6px' }}>
+                    <span className="whitespace-nowrap">{course.lessons}강</span>
+                    <span className="text-gray-300">|</span>
+                    <span className="flex items-center" style={{ gap: '3px' }}>
+                      <HiOutlineEye className="w-4 h-4" />
+                      {course.views.toLocaleString()}
+                    </span>
+                    <span className="text-gray-300">|</span>
+                    <span>{course.level}</span>
+                  </div>
                 </div>
 
                 {/* 가격 */}
-                <div className="flex items-center" style={{ gap: '8px' }}>
+                <div className="flex flex-col md:flex-row md:items-center" style={{ gap: '2px' }}>
                   {course.salePrice ? (
                     <>
-                      <span className="text-primary font-bold" style={{ fontSize: '18px' }}>
+                      <span className="text-primary font-bold whitespace-nowrap" style={{ fontSize: '18px' }}>
                         {course.salePrice.toLocaleString()}원
                       </span>
-                      <span className="text-gray-400 line-through" style={{ fontSize: '14px' }}>
+                      <span className="text-gray-400 line-through whitespace-nowrap" style={{ fontSize: '14px' }}>
                         {course.originalPrice.toLocaleString()}원
                       </span>
                     </>
                   ) : (
-                    <span className="text-gray-900 font-bold" style={{ fontSize: '18px' }}>
+                    <span className="text-gray-900 font-bold whitespace-nowrap" style={{ fontSize: '18px' }}>
                       {course.originalPrice.toLocaleString()}원
                     </span>
                   )}

@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 const experts = [
   {
     id: 1,
@@ -29,6 +31,16 @@ const experts = [
 ];
 
 export default function PopularExperts() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // 5초마다 자동 슬라이드 (모바일용)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % experts.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="bg-white" style={{ padding: '64px 0' }}>
       <div className="container-center">
@@ -42,43 +54,106 @@ export default function PopularExperts() {
           </button>
         </div>
 
-        {/* 카드 목록 */}
-        <div className="grid grid-cols-3" style={{ gap: '24px' }}>
+        {/* 모바일: 슬라이드 */}
+        <div className="md:hidden">
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {experts.map((expert) => (
+                <div key={expert.id} className="w-full flex-shrink-0 flex flex-col" style={{ gap: '16px' }}>
+                  {/* 카드 */}
+                  <div
+                    className="relative overflow-hidden cursor-pointer group h-[450px]"
+                    style={{ borderRadius: '8px' }}
+                  >
+                    <img
+                      src={expert.image}
+                      alt={expert.name}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)',
+                      }}
+                    />
+                    <div className="absolute inset-0 flex flex-col justify-between" style={{ padding: '24px' }}>
+                      <div>
+                        <h3 className="text-white font-bold" style={{ fontSize: '22px', lineHeight: '1.3' }}>
+                          {expert.title}
+                        </h3>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-white/70" style={{ fontSize: '13px' }}>
+                          {expert.category} 부문
+                        </p>
+                        <p className="text-white font-semibold" style={{ fontSize: '15px' }}>
+                          {expert.name} 전문가
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  {/* 버튼들 */}
+                  <div className="flex" style={{ gap: '12px' }}>
+                    <button
+                      className="flex-1 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark transition-colors"
+                      style={{ padding: '14px 0', fontSize: '15px' }}
+                    >
+                      수강신청하기
+                    </button>
+                    <button
+                      className="flex-1 bg-white text-gray-700 font-medium rounded-lg border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors"
+                      style={{ padding: '14px 0', fontSize: '15px' }}
+                    >
+                      의뢰하기
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* 인디케이터 */}
+          <div className="flex justify-center" style={{ gap: '8px', marginTop: '32px' }}>
+            {experts.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`rounded-full transition-all ${
+                  index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300 w-2'
+                }`}
+                style={{ height: '8px' }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* 데스크톱: 그리드 */}
+        <div className="hidden md:grid grid-cols-3" style={{ gap: '24px' }}>
           {experts.map((expert) => (
             <div key={expert.id} className="flex flex-col" style={{ gap: '16px' }}>
-              {/* 카드 */}
               <div
-                className="relative overflow-hidden cursor-pointer group"
-                style={{
-                  borderRadius: '8px',
-                  height: '620px',
-                }}
+                className="relative overflow-hidden cursor-pointer group h-[620px]"
+                style={{ borderRadius: '8px' }}
               >
-                {/* 배경 이미지 */}
                 <img
                   src={expert.image}
                   alt={expert.name}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-
-                {/* 그라데이션 오버레이 */}
                 <div
                   className="absolute inset-0"
                   style={{
                     background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)',
                   }}
                 />
-
-                {/* 텍스트 컨텐츠 */}
                 <div className="absolute inset-0 flex flex-col justify-between" style={{ padding: '24px' }}>
-                  {/* 좌측 상단: 타이틀 */}
                   <div>
                     <h3 className="text-white font-bold" style={{ fontSize: '22px', lineHeight: '1.3' }}>
                       {expert.title}
                     </h3>
                   </div>
-
-                  {/* 우측 하단: 카테고리 + 전문가 이름 */}
                   <div className="text-right">
                     <p className="text-white/70" style={{ fontSize: '13px' }}>
                       {expert.category} 부문
@@ -89,8 +164,6 @@ export default function PopularExperts() {
                   </div>
                 </div>
               </div>
-
-              {/* 버튼들 */}
               <div className="flex" style={{ gap: '12px' }}>
                 <button
                   className="flex-1 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark transition-colors"

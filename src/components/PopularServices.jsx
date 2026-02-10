@@ -73,13 +73,13 @@ export default function PopularServices() {
         </div>
 
         {/* 카드 목록 */}
-        <div className="grid grid-cols-5" style={{ gap: '24px' }}>
-          {services.map((service) => (
-            <div key={service.id} className="cursor-pointer group">
+        <div className="grid grid-cols-2 md:grid-cols-5" style={{ gap: '24px' }}>
+          {services.map((service, index) => (
+            <div key={service.id} className={`cursor-pointer group ${index >= 4 ? 'hidden md:block' : ''}`}>
               {/* 썸네일 */}
               <div
-                className="relative overflow-hidden bg-gray-100"
-                style={{ borderRadius: '12px', marginBottom: '16px' }}
+                className="relative overflow-hidden bg-gray-100 rounded-[6px] md:rounded-xl"
+                style={{ marginBottom: '16px' }}
               >
                 <img
                   src={service.thumbnail}
@@ -107,11 +107,11 @@ export default function PopularServices() {
               </h3>
 
               {/* 전문가 정보 + 별점 */}
-              <div className="flex items-center" style={{ gap: '8px', marginBottom: '6px', marginTop: '16px' }}>
+              <div className="flex flex-col md:flex-row md:items-center" style={{ gap: '4px 8px', marginBottom: '6px', marginTop: '16px' }}>
                 <span className="text-gray-700 font-medium" style={{ fontSize: '14px' }}>
                   {service.expert}
                 </span>
-                <span className="text-gray-300">|</span>
+                <span className="hidden md:inline text-gray-300">|</span>
                 <div className="flex items-center" style={{ gap: '4px' }}>
                   <FaStar className="text-yellow-400" style={{ width: '14px', height: '14px' }} />
                   <span className="text-primary font-medium" style={{ fontSize: '14px' }}>

@@ -9,10 +9,10 @@ export default function Header() {
 
   return (
     <header className="w-full bg-white sticky top-0 z-50">
-      {/* 1단: 상단 유틸리티 바 */}
-      <div className="bg-gray-50 border-b border-gray-200">
+      {/* 1단: 상단 유틸리티 바 (모바일에서 숨김) */}
+      <div className="hidden md:block bg-gray-50 border-b border-gray-200">
         <div className="container-center flex items-center justify-between h-10 text-sm text-gray-500">
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-6">
             <a href="#" className="hover:text-gray-900 transition-colors">
               강의
             </a>
@@ -24,7 +24,7 @@ export default function Header() {
               <HiOutlineChevronDown className="w-3 h-3" />
             </a>
           </nav>
-          <nav className="hidden md:flex items-center gap-4">
+          <nav className="flex items-center gap-4">
             <a href="#" className="hover:text-gray-900 transition-colors">
               로그인
             </a>
@@ -42,23 +42,12 @@ export default function Header() {
               1:1 상담
             </a>
           </nav>
-          {/* 모바일 메뉴 버튼 */}
-          <button
-            className="md:hidden ml-auto p-1"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <HiOutlineX className="w-6 h-6 text-gray-700" />
-            ) : (
-              <HiOutlineMenu className="w-6 h-6 text-gray-700" />
-            )}
-          </button>
         </div>
       </div>
 
-      {/* 2단: 메인 네비게이션 */}
+      {/* 메인 네비게이션 */}
       <div className="border-b border-gray-200">
-        <div className="container-center flex items-center justify-between h-16">
+        <div className="container-center flex items-center justify-between h-14 md:h-16">
           {/* 왼쪽: 로고 + 토글 */}
           <div className="flex items-center gap-4">
             {/* 로고 */}
@@ -96,7 +85,20 @@ export default function Header() {
             </div>
           </div>
 
-          {/* 오른쪽: 메인 메뉴 */}
+          {/* 오른쪽: 메인 메뉴 (데스크탑) + 햄버거 (모바일) */}
+          <div className="flex items-center">
+            {/* 모바일 햄버거 */}
+            <button
+              className="md:hidden p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <HiOutlineX className="w-6 h-6 text-gray-700" />
+              ) : (
+                <HiOutlineMenu className="w-6 h-6 text-gray-700" />
+              )}
+            </button>
+          </div>
           <nav className="hidden lg:flex items-center gap-8 text-[15px] font-normal text-gray-700">
             <a href="#" className="flex items-center gap-1.5 hover:text-primary transition-colors">
               <HiOutlineMenu className="w-4 h-4" />

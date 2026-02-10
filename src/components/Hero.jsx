@@ -50,7 +50,7 @@ export default function Hero() {
             </p>
 
             {/* 메인 타이틀 */}
-            <h1 className="font-bold text-gray-900 leading-tight" style={{ fontSize: '46px', letterSpacing: '-1px' }}>
+            <h1 className="font-bold text-gray-900 leading-tight" style={{ fontSize: '40px', letterSpacing: '-1px' }}>
               성공이 필요한 순간,<br />
               <span className="text-primary">딱 맞는 전문가</span>를 찾아보세요
             </h1>
@@ -71,12 +71,12 @@ export default function Hero() {
             </div>
 
             {/* 인기 태그 */}
-            <div className="flex flex-wrap" style={{ gap: '12px' }}>
+            <div className="flex flex-wrap max-h-[82px] md:max-h-none overflow-hidden" style={{ gap: '10px' }}>
               {popularTags.map((tag) => (
                 <button
                   key={tag}
                   className="text-gray-600 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors"
-                  style={{ padding: '10px 20px', fontSize: '14px', border: '0.5px solid #d1d5db' }}
+                  style={{ padding: '6px 16px', fontSize: '14px', border: '0.5px solid #d1d5db' }}
                 >
                   #{tag}
                 </button>
