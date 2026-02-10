@@ -52,7 +52,7 @@ export default function Hero() {
             {/* 메인 타이틀 */}
             <h1 className="font-bold text-gray-900 leading-tight" style={{ fontSize: '40px', letterSpacing: '-1px' }}>
               성공이 필요한 순간,<br />
-              <span className="text-primary">딱 맞는 전문가</span>를 찾아보세요
+              <span className="text-primary">딱 맞는 전문가</span> 를 찾아보세요
             </h1>
 
             {/* 검색 바 */}
@@ -85,12 +85,11 @@ export default function Hero() {
           </div>
 
           {/* 오른쪽: 카드 슬라이더 */}
-          <div className="shrink-0" style={{ width: '500px', height: '380px' }}>
+          <div className="w-[calc(100%+40px)] -mx-5 lg:mx-0 lg:w-[500px] shrink-0" style={{ height: '380px' }}>
             <div
-              className="relative overflow-hidden h-full"
+              className="relative overflow-hidden h-full rounded-none lg:rounded-3xl"
               style={{
                 background: 'linear-gradient(135deg, #E53E3E 0%, #C53030 50%, #9B2C2C 100%)',
-                borderRadius: '24px',
               }}
             >
               {/* 슬라이드 콘텐츠 */}

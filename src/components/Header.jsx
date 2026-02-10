@@ -47,7 +47,7 @@ export default function Header() {
 
       {/* 메인 네비게이션 */}
       <div className="border-b border-gray-200">
-        <div className="container-center flex items-center justify-between h-14 md:h-16">
+        <div className="container-center flex items-center justify-between h-16 md:h-16">
           {/* 왼쪽: 로고 + 토글 */}
           <div className="flex items-center gap-4">
             {/* 로고 */}
@@ -70,9 +70,8 @@ export default function Header() {
               </span>
               <button
                 onClick={() => setIsExpertMode(!isExpertMode)}
-                className={`relative w-12 h-6 rounded-full transition-colors ${
-                  isExpertMode ? 'bg-primary' : 'bg-gray-300'
-                }`}
+                className={`relative w-12 h-6 rounded-full transition-colors ${isExpertMode ? 'bg-primary' : 'bg-gray-300'
+                  }`}
               >
                 <span
                   className="absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-300 ease-in-out"
@@ -124,15 +123,35 @@ export default function Header() {
       {/* 모바일 메뉴 */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-gray-200 overflow-hidden"
-          >
-            <div className="px-6 py-4 space-y-4">
-              {/* 모바일 토글 */}
-              <div className="flex items-center justify-center gap-3 py-2">
+          <>
+            {/* 반투명 배경 오버레이 */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="md:hidden fixed inset-0 bg-black/50 z-50"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            {/* 메뉴 패널 (오른쪽에서 슬라이드) */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3 }}
+              className="md:hidden fixed top-0 right-0 bottom-0 w-[300px] bg-white z-50 flex flex-col"
+            >
+              {/* 헤더 - 닫기 버튼 (햄버거 버튼과 동일 위치) */}
+              <div className="flex items-center justify-end h-16 px-5 border-b border-gray-100">
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2"
+                >
+                  <HiOutlineX className="w-6 h-6 text-gray-500" />
+                </button>
+              </div>
+
+              {/* 토글 스위치 */}
+              <div className="flex items-center justify-end gap-2 h-10 px-5 border-b border-gray-100">
                 <span className={`text-sm ${!isExpertMode ? 'text-gray-900 font-medium' : 'text-gray-400'}`}>
                   수강생
                 </span>
@@ -143,7 +162,7 @@ export default function Header() {
                   }`}
                 >
                   <span
-                    className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${
+                    className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all ${
                       isExpertMode ? 'left-7' : 'left-1'
                     }`}
                   />
@@ -153,51 +172,59 @@ export default function Header() {
                 </span>
               </div>
 
-              <hr className="border-gray-200" />
+              {/* 서비스 섹션 */}
+              <div className="px-5 pt-5 flex flex-col gap-1">
+                <p className="text-gray-400 text-xs font-medium">서비스</p>
+                <nav className="flex flex-col">
+                  <a href="#" className="h-12 flex items-center text-gray-700 font-medium text-[15px] hover:text-primary transition-colors">
+                    전체 서비스
+                  </a>
+                  <a href="#" className="h-12 flex items-center text-gray-700 font-medium text-[15px] hover:text-primary transition-colors">
+                    인기 강의
+                  </a>
+                  <a href="#" className="h-12 flex items-center text-gray-700 font-medium text-[15px] hover:text-primary transition-colors">
+                    전문가 매칭
+                  </a>
+                  <a href="#" className="h-12 flex items-center text-gray-700 font-medium text-[15px] hover:text-primary transition-colors">
+                    의뢰하기
+                  </a>
+                  <a href="#" className="h-12 flex items-center gap-2 text-gray-700 font-medium text-[15px] hover:text-primary transition-colors">
+                    이벤트
+                    <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                  </a>
+                </nav>
+              </div>
 
-              {/* 모바일 메뉴 */}
-              <nav className="space-y-3">
-                <a href="#" className="block py-2 text-gray-700 hover:text-primary transition-colors">
-                  강의
-                </a>
-                <a href="#" className="block py-2 text-gray-700 hover:text-primary transition-colors">
-                  전문가 찾기
-                </a>
-                <a href="#" className="block py-2 text-gray-700 hover:text-primary transition-colors">
-                  의뢰하기
-                </a>
-                <a href="#" className="block py-2 text-gray-700 hover:text-primary transition-colors">
-                  전체 서비스
-                </a>
-                <a href="#" className="block py-2 text-gray-700 hover:text-primary transition-colors">
-                  인기 강의
-                </a>
-                <a href="#" className="block py-2 text-gray-700 hover:text-primary transition-colors">
-                  전문가 매칭
-                </a>
-                <a href="#" className="block py-2 text-gray-700 hover:text-primary transition-colors">
-                  이벤트
-                </a>
-                <a href="#" className="block py-2 text-gray-700 hover:text-primary transition-colors">
-                  교육문의
-                </a>
-              </nav>
+              {/* 고객 지원 섹션 */}
+              <div className="px-5 pt-5 flex flex-col gap-1 border-t border-gray-100">
+                <p className="text-gray-400 text-xs font-medium">고객 지원</p>
+                <nav className="flex flex-col">
+                  <a href="#" className="h-12 flex items-center text-gray-700 font-medium text-[15px] hover:text-primary transition-colors">
+                    교육문의
+                  </a>
+                  <a href="#" className="h-12 flex items-center text-gray-700 font-medium text-[15px] hover:text-primary transition-colors">
+                    고객센터
+                  </a>
+                </nav>
+              </div>
 
-              <hr className="border-gray-200" />
-
-              <div className="flex items-center gap-4 text-sm">
-                <a href="#" className="text-gray-600 hover:text-primary">
+              {/* 하단 버튼 영역 */}
+              <div className="mt-auto px-5 py-5 flex gap-3 border-t border-gray-100">
+                <a
+                  href="#"
+                  className="flex-1 h-12 flex items-center justify-center text-gray-700 font-medium text-[15px] border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                >
                   로그인
                 </a>
-                <a href="#" className="text-gray-600 hover:text-primary">
+                <a
+                  href="#"
+                  className="flex-1 h-12 flex items-center justify-center text-white font-medium text-[15px] bg-primary rounded-lg hover:bg-primary-dark transition-colors"
+                >
                   회원가입
                 </a>
-                <a href="#" className="text-gray-600 hover:text-primary">
-                  고객센터
-                </a>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>
